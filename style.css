@@ -1,0 +1,59 @@
+body
+{
+    font-family: monospace;
+}
+
+table
+{
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+tr, td
+{
+    border: 0px;
+}
+
+.signal
+{
+    margin: 0px;
+
+    border-color: black;
+    border-style: solid;
+
+    width: max(20px, 5vw);
+    height: max(20px, 5vh);
+
+}
+
+.on_top
+{
+    border-top-width: 3px;
+}
+
+.on_bottom
+{
+    border-bottom-width: 3px;
+}
+
+.on_left
+{
+    border-left-width: 3px;
+}
+
+.on_right
+{
+    border-right-width: 3px;
+}
+
+.viewer_container
+{
+    background-color: aliceblue;
+    padding: 10px;
+    margin: 10px;
+}
+
+.binary_label
+{
+    text-align: center;
+}
