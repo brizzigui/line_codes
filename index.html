@@ -8,17 +8,24 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Lato&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1>Visualização de Códigos de Linha</h1> 
-    <p>Trabalho 1 de Comunicação de Dados (ELCxxxx).</p>
-    <p>Grupo: a, b, c, e d.</p>
-
-    <input type="text" id="sequence_in">
-    <button onclick="generate();">Codificar</button>
-
-    <div class="viewer_container" id="viewer_container">
+    <div class="main_area">
+        <div class="header">
+            <h1>Visualização de Códigos de Linha</h1> 
+            <div class="subheader">
+                <p>Trabalho 1 de Comunicação de Dados (ELC123)<br>Grupo: Guilherme Brizzi, Guilherme Einloft, Jaime Filho e Luís Tozevich.</p>
+            </div>
+            
+            <div class="input_area">
+                <input type="text" id="sequence_in">
+                <button onclick="generate();" class="accent-button">Codificar</button>
+            </div>
+        </div>
+    
+        <div class="viewer_container" id="viewer_container">
+        </div>
     </div>
-
 </body>
