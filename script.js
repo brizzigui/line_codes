@@ -482,12 +482,28 @@ function diff_manchester(sequence)
     table.appendChild(row_bottom);
 }
 
-function code_4dpan5(sequence)
+function code_4dpam5(sequence)
 {
-    const parent = "code_4dpan5_container"
-    const id = "code_4dpan5_table";
+    const parent = "code_4dpam5_container"
+    const id = "code_4dpam5_table";
     create_container(parent);
-    create_label(parent, "4D-PAN5");
+    create_label(parent, "4D-PAM5");
+
+    if (sequence.length	% 2 != 0) 
+    {
+        let hr = document.createElement("hr");
+        document.getElementById(parent).appendChild(hr);
+
+        let error = document.createElement("p");
+        error.innerHTML = "<span style='color:#20C20E'>-></span> Esse código de linha codifica de 2 em 2. Favor, insira uma sequência de bits de tamanho par.";
+        document.getElementById(parent).appendChild(error);
+
+        return;
+    }   
+
+    let br = document.createElement("br");
+    document.getElementById(parent).appendChild(br);
+
     create_new_table(id, parent);
 
     let table = document.getElementById(id);
@@ -496,6 +512,36 @@ function code_4dpan5(sequence)
     let row_mid = document.createElement("tr");
     let row_mid_bottom = document.createElement("tr");
     let row_bottom = document.createElement("tr");
+
+    let ctop = document.createElement("td");
+    let cmidtop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cmidbottom = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    ctop.innerHTML = "+2";
+    cmidtop.innerHTML = "+1";
+    cmid.innerHTML = "0";
+    cmidbottom.innerHTML = "-1";
+    cbottom.innerHTML = "-2";
+
+    ctop.classList.add("level_label");
+    cmidtop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cmidbottom.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid_top.appendChild(cmidtop);
+    row_mid.appendChild(cmid);
+    row_mid_bottom.appendChild(cmidbottom);
+    row_bottom.appendChild(cbottom);
+
+    table.appendChild(row_top);
+    table.appendChild(row_mid_top);
+    table.appendChild(row_mid);
+    table.appendChild(row_mid_bottom);
+    table.appendChild(row_bottom);
 
     let last = sequence.slice(0, 2);
 
@@ -646,5 +692,5 @@ function generate()
     pseudoternary(sequence);
     manchester(sequence);
     diff_manchester(sequence);
-    code_4dpan5(sequence)
+    code_4dpam5(sequence)
 }

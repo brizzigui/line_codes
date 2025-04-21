@@ -161,3 +161,12 @@ input:focus
     height: 20px;
     vertical-align: bottom;
 }
+
+.level_label
+{
+    margin: 0px;
+    transform: translateY(-50%);
+    width: 30px;
+    padding-right: 10px;
+    text-align: center;
+}
