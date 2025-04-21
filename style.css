@@ -170,3 +170,10 @@ input:focus
     padding-right: 10px;
     text-align: center;
 }
+
+.special_label
+{
+    width: max-content;
+    transform: translateX(-50%);
+    margin: 0px;
+}
