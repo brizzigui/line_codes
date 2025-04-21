@@ -37,7 +37,7 @@ function nrzl(sequence)
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
 
-    let last = 0;
+    let last = sequence[0];
 
     for (let i = 0; i < sequence.length; i++) 
     {
@@ -52,36 +52,20 @@ function nrzl(sequence)
         ctop.classList.add("signal");
         cmid.classList.add("signal");
 
-        if (i == 0) 
+        if (last != sequence[i])
         {
-            if (sequence[i] == 0)
-            {
-                cmid.classList.add("on_bottom");
-            }
+            cmid.classList.add("on_left");
+            ctop.classList.add("on_left");
+        }
 
-            else
-            {
-                ctop.classList.add("on_top");
-            }
+        if (sequence[i] == 0)
+        {
+            cmid.classList.add("on_bottom");
         }
 
         else
         {
-            if (last != sequence[i])
-            {
-                cmid.classList.add("on_left");
-                ctop.classList.add("on_left");
-            }
-
-            if (sequence[i] == 0)
-            {
-                cmid.classList.add("on_bottom");
-            }
-
-            else
-            {
-                ctop.classList.add("on_top");
-            }
+            ctop.classList.add("on_top");
         }
 
         cbottom.innerHTML = sequence[i];
@@ -498,6 +482,158 @@ function diff_manchester(sequence)
     table.appendChild(row_bottom);
 }
 
+function code_4dpan5(sequence)
+{
+    const parent = "code_4dpan5_container"
+    const id = "code_4dpan5_table";
+    create_container(parent);
+    create_label(parent, "4D-PAN5");
+    create_new_table(id, parent);
+
+    let table = document.getElementById(id);
+    let row_top = document.createElement("tr");
+    let row_mid_top = document.createElement("tr");
+    let row_mid = document.createElement("tr");
+    let row_mid_bottom = document.createElement("tr");
+    let row_bottom = document.createElement("tr");
+
+    let last = sequence.slice(0, 2);
+
+    for (let i = 0; i < sequence.length; i+=2) 
+    {
+        let ctop = document.createElement("td")
+        let cmidtop = document.createElement("td")
+        let cmid = document.createElement("td")
+        let cmidbottom = document.createElement("td")
+        let cbottom = document.createElement("td")
+
+        ctop.classList.add("indicator");
+        cmidtop.classList.add("indicator");
+        cmid.classList.add("indicator");
+        cmidbottom.classList.add("indicator");
+
+        ctop.classList.add("signal");
+        cmidtop.classList.add("signal");        
+        cmid.classList.add("signal");
+        cmidbottom.classList.add("signal");
+        
+        cmidtop.classList.add("zero");
+
+        if (sequence.slice(i, i+2) == "00")
+        {
+            cmidbottom.classList.add("on_bottom");
+
+            if (last == "01")
+            {
+                cmidbottom.classList.add("on_left");
+            }
+
+            else if (last == "10")
+            {
+                cmidbottom.classList.add("on_left");
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+            }
+
+            else if(last == "11")
+            {
+                cmidbottom.classList.add("on_left");
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+                ctop.classList.add("on_left");
+            }
+        }
+
+        else if (sequence.slice(i, i+2) == "01")
+        {
+            cmid.classList.add("on_bottom");
+            if (last == "00")
+            {
+                cmidbottom.classList.add("on_left");
+            }
+
+            else if (last == "10")
+            {
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+            }
+
+            else if(last == "11")
+            {
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+                ctop.classList.add("on_left");
+            }
+        }
+
+        else if (sequence.slice(i, i+2) == "10")
+        {
+            cmidtop.classList.add("on_top");
+            if (last == "00")
+            {
+                cmidbottom.classList.add("on_left");
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+            }
+
+            else if (last == "01")
+            {
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+            }
+
+            else if(last == "11")
+            {
+                ctop.classList.add("on_left");
+            }
+        }
+
+        else
+        {
+            ctop.classList.add("on_top");
+            if (last == "00")
+            {
+                cmidbottom.classList.add("on_left");
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+                ctop.classList.add("on_left");
+            }
+
+            else if (last == "01")
+            {
+                cmid.classList.add("on_left");
+                cmidtop.classList.add("on_left");
+                ctop.classList.add("on_left");
+            }
+
+            else if(last == "10")
+            {
+                ctop.classList.add("on_left");
+            }
+        }
+
+        cbottom.innerHTML = sequence.slice(i, i+2);
+        cbottom.classList.add("binary_label");
+
+        for (let k = 0; k < 2; k++) 
+        {
+            row_top.appendChild(ctop);
+            row_mid_top.appendChild(cmidtop);
+            row_mid.appendChild(cmid);
+            row_mid_bottom.appendChild(cmidbottom);
+        }
+
+        row_bottom.appendChild(cbottom);
+
+        last = sequence.slice(i, i+2);
+    }
+
+    table.appendChild(row_top);
+    table.appendChild(row_mid_top);
+    table.appendChild(row_mid);
+    table.appendChild(row_mid_bottom);
+    table.appendChild(row_bottom);
+}
 
 function generate()
 {
@@ -510,4 +646,5 @@ function generate()
     pseudoternary(sequence);
     manchester(sequence);
     diff_manchester(sequence);
+    code_4dpan5(sequence)
 }
