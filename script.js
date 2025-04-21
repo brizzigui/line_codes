@@ -681,6 +681,215 @@ function code_4dpam5(sequence)
     table.appendChild(row_bottom);
 }
 
+function encode_4b3t(sequence, dc)
+{
+    if (sequence == "0000")
+    {
+        if (dc == 1)
+            return ["+0+", 2];
+
+        else
+            return ["0-0", -1];
+    }
+
+    else if(sequence == "0001")
+    {
+        return ["0-+", 0];
+    }
+    else if(sequence == "0010")
+    {
+        return ["+-0", 0];
+    }
+    else if(sequence == "0011")
+    {
+        if(dc == 4)
+            return ["--0", -2];
+        else
+            return ["00+", 1];
+    }
+    else if(sequence == "0100")
+    {
+        return ["-+0", 0];
+    }
+    else if(sequence == "0101")
+    {
+        if(dc == 1)
+            return ["0++", 2];
+        else
+            return ["-00", -1];
+    }
+    else if(sequence == "0110")
+    {
+        if(dc == 1 || dc == 2)
+            return ["-++", 1];
+        else
+            return ["--+", -1];
+    }
+    else if(sequence == "0111")
+    {
+        return ["-0+", 0];
+    }
+    else if(sequence == "1000")
+    {
+        if(dc == 4)
+            return ["0--", -2];
+        else
+            return ["+00", 1];
+    }
+    else if(sequence == "1001")
+    {
+        if(dc == 4)
+            return ["---", -3];
+        else
+            return ["+-+", 1];
+    }
+    else if(sequence == "1010")
+    {
+        if(dc == 1 || dc == 2)
+            return ["++-", 1];
+        else
+            return ["+--", -1];
+    }
+    else if(sequence == "1011")
+    {
+        return ["+0-", 0];
+    }
+    else if(sequence == "1100")
+    {
+        if(dc == 1)
+            return ["+++", 3];
+        else 
+            return ["-+-", -1];
+    }
+    else if(sequence == "1101")
+    {
+        if(dc == 4)
+            return ["-0-", -2];
+        else
+            return ["0+0", 1];
+    }
+    else if(sequence == "1110")
+    {
+        return ["0+-", 0];
+    }
+    else
+    {
+        if(dc == 1)
+            return ["++0", 2];
+        else
+            return ["00-", -1];
+    }
+
+}
+
+function code_4b3t(sequence)
+{
+    const parent = "code_4b3t_container"
+    const id = "code_4b3t_table";
+    create_container(parent);
+    create_label(parent, "4B3T");
+
+    if (sequence.length	% 4 != 0) 
+    {
+        let hr = document.createElement("hr");
+        document.getElementById(parent).appendChild(hr);
+
+        let error = document.createElement("p");
+        error.innerHTML = "<span style='color:#20C20E'>-></span> Esse código de linha codifica de 4 em 4. Favor, insira uma sequência de bits de tamanho múltiplo de 4.";
+        document.getElementById(parent).appendChild(error);
+
+        return;
+    }   
+
+    create_new_table(id, parent);
+
+    let table = document.getElementById(id);
+    let row_top = document.createElement("tr");
+    let row_mid = document.createElement("tr");
+    let row_bottom = document.createElement("tr");
+
+    let dc_offset = 1;
+
+    encoding = encode_4b3t(sequence.slice(0, 4), dc_offset);
+    levels = encoding[0];
+    let last_level = levels[0];
+
+
+    for (let i = 0; i < sequence.length; i+=4) 
+    {
+        encoding = encode_4b3t(sequence.slice(i, i+4), dc_offset);
+        levels = encoding[0];
+        dc_offset += encoding[1];
+
+        for (let j = 0; j < 3; j++) 
+        {
+            let ctop = document.createElement("td")
+            let cmid = document.createElement("td")
+
+            ctop.classList.add("indicator");
+            ctop.classList.add("zero");
+            cmid.classList.add("indicator");
+
+            ctop.classList.add("signal");
+            cmid.classList.add("signal");
+
+            if (levels[j] == 0)
+            {
+                ctop.classList.add("on_bottom");
+                if (last_level == "+")
+                    ctop.classList.add("on_left");
+                else if(last_level == "-")
+                    cmid.classList.add("on_left");
+            }
+
+            else if (levels[j] == "+")
+            {
+                ctop.classList.add("on_top");
+                if (last_level == "0")
+                    ctop.classList.add("on_left");
+                else if(last_level == "-")
+                {
+                    ctop.classList.add("on_left");
+                    cmid.classList.add("on_left");
+                }
+            }
+
+            else
+            {
+                cmid.classList.add("on_bottom");
+                if (last_level == "0")
+                    cmid.classList.add("on_left");
+                else if(last_level == "+")
+                {
+                    ctop.classList.add("on_left");
+                    cmid.classList.add("on_left");
+                }
+            }
+
+            row_top.appendChild(ctop);
+            row_mid.appendChild(cmid);
+
+            last_level = levels[j];
+        }
+
+        let cbottom = document.createElement("td")
+        row_bottom.appendChild(cbottom);
+
+        cbottom = document.createElement("td")
+        cbottom.innerHTML = sequence.slice(i, i+4);
+        cbottom.classList.add("binary_label");
+        row_bottom.appendChild(cbottom);
+
+        cbottom = document.createElement("td")
+        row_bottom.appendChild(cbottom);
+    }
+
+    table.appendChild(row_top);
+    table.appendChild(row_mid);
+    table.appendChild(row_bottom);
+}
+
+
 function generate()
 {
     let sequence = document.getElementById("sequence_in").value;
@@ -693,4 +902,5 @@ function generate()
     manchester(sequence);
     diff_manchester(sequence);
     code_4dpam5(sequence)
+    code_4b3t(sequence);
 }
