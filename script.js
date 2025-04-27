@@ -918,9 +918,21 @@ function code_8b6t(sequence)
     levels = table8b6t[sequence.slice(0, 8)];
     let last_level = levels[0];
 
+    let line_weight = 0;
+
     for (let i = 0; i < sequence.length; i+=8) 
     {
         levels = table8b6t[sequence.slice(i, i+8)]
+
+        signal_weight = levels.split("+").length - levels.split("-").length;
+
+        if (line_weight == 1 && signal_weight == 1)
+        {
+            levels = levels.replace(/\+|-/g, v => v == "+" ? "-" : "+");
+            signal_weight *= -1;
+        }
+
+        line_weight += signal_weight;
 
         for (let j = 0; j < 6; j++) 
         {
