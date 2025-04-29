@@ -940,7 +940,7 @@ function code_4dpam5(sequence)
         document.getElementById(parent).appendChild(hr);
 
         let error = document.createElement("p");
-        error.innerHTML = "<span style='color:#20C20E'>-></span> Esse código de linha codifica de 2 em 2. Favor, insira uma sequência de bits de tamanho par.";
+        error.innerHTML = "<span style='color:#20C20E'>-></span> Esse código de linha codifica de 8 em 8. Favor, insira uma sequência de bits de tamanho múltiplo de 8.";
         document.getElementById(parent).appendChild(error);
 
         return;
