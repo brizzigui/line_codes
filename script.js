@@ -37,6 +37,20 @@ function code_nrzl(sequence)
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
 
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
+
     let last = sequence[0];
 
     for (let i = 0; i < sequence.length; i++) 
@@ -97,6 +111,20 @@ function code_nrzi(sequence)
     let row_top = document.createElement("tr");
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
+
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
 
     let up = true;
 
@@ -159,6 +187,20 @@ function code_ami(sequence)
     let row_top = document.createElement("tr");
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
+
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
 
     let last = 0;
     let up = false;
@@ -248,6 +290,20 @@ function code_pseudoternary(sequence)
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
 
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
+
     let last = 1;
     let up = false;
 
@@ -332,6 +388,20 @@ function code_manchester(sequence)
     let row_top = document.createElement("tr");
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
+
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
 
     let last = (sequence[0] == 0) ? 1 : 0;
 
@@ -425,6 +495,20 @@ function code_diff_manchester(sequence)
     let row_top = document.createElement("tr");
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
+
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
 
     let up = true;
 
@@ -609,6 +693,20 @@ function code_4b3t(sequence)
     let row_mid = document.createElement("tr");
     let row_bottom = document.createElement("tr");
 
+    let ctop = document.createElement("td");
+    let cmid = document.createElement("td");
+    let cbottom = document.createElement("td");
+
+    cmid.innerHTML = "0";
+
+    ctop.classList.add("level_label");
+    cmid.classList.add("level_label");
+    cbottom.classList.add("level_label");
+
+    row_top.appendChild(ctop);
+    row_mid.appendChild(cmid);
+    row_bottom.appendChild(cbottom);
+
     let dc_offset = 1;
 
     encoding = encode_4b3t(sequence.slice(0, 4), dc_offset);
@@ -720,9 +818,7 @@ function code_8b6t(sequence)
     let cmid = document.createElement("td");
     let cbottom = document.createElement("td");
 
-    ctop.innerHTML = "+1";
     cmid.innerHTML = "0";
-    cbottom.innerHTML = "-1";
 
     ctop.classList.add("level_label");
     cmid.classList.add("level_label");
@@ -838,7 +934,7 @@ function code_4dpam5(sequence)
     create_container(parent);
     create_label(parent, "4D-PAM5");
 
-    if (sequence.length	% 2 != 0) 
+    if (sequence.length	% 8 != 0) 
     {
         let hr = document.createElement("hr");
         document.getElementById(parent).appendChild(hr);
